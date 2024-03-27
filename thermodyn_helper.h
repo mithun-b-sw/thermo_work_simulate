@@ -6,7 +6,22 @@
 // opaque pointer
 typedef struct system_t * device;
 
-// Interface declarations
-void init(device *gas, double volume, double pressure, double temperature);
-void print_current_state(device gas);
-void uninit(device gas);
+
+/**
+ * Interface declarations:
+ */
+
+// Function return type:
+typedef enum {SUCCESS, FAILURE} status;
+
+// Type 1: Resource management functions
+status init(device *gas, double volume, double pressure, double temperature);
+status deinit(device gas);
+
+// Type 2: Display functions
+status print_current_state(device gas);
+
+// Type 3: Computation functions
+status update_volume_isothermal(device gas, double new_volume);
+status update_pressure_isometric(device gas, double new_pressure);
+
