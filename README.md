@@ -62,6 +62,7 @@ Every client code must end by calling deinit() which frees the resources allocat
 
 1. Currently tested on Linux based OS.
 2. Needs 'make' and 'gcc' commands to compile (sudo apt-get install build-essential).
+3. Needs 'lcov' installation for 'geninfo' and 'genhtml' commands (sudo apt-get install lcov)
 
 #### usage
 
@@ -87,3 +88,5 @@ Every client code must end by calling deinit() which frees the resources allocat
 	volume(L)	pressure(Pa)	temperature(K)
 	10.000 L	  101333 Pa	        300 K
 
+	$ make cov      # for coverage report generation
+	                # to also html report generated under ./coverage/index.html can be view
