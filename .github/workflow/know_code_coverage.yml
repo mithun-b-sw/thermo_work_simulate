@@ -11,11 +11,11 @@ jobs:
     - name: Checkout cods
       uses: actions/checkout@v2
     - name: Compile
-      uses: make CFLAGS=--coverage
+      run: make CFLAGS=--coverage
     - name: Create gcda files
-      uses: ./thermodyn_cycle
+      run: ./thermodyn_cycle
     - name: Collect Coverage
-      uses: geninfo ./ -b ./ -o ./coverage/lcov.info
+      run: geninfo ./ -b ./ -o ./coverage/lcov.info
     - name: Report code coverage
       uses: zgosalvez/github-actions-report-lcov@v3
       with:
