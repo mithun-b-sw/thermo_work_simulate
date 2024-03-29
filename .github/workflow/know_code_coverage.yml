@@ -12,6 +12,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Compile
       uses: make CFLAGS=--coverage
+    - name: Create gcda files
+      uses: ./thermodyn_cycle
     - name: Collect Coverage
       uses: geninfo ./ -b ./ -o ./coverage/lcov.info
     - name: Report code coverage
