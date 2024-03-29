@@ -1,3 +1,5 @@
+#ifndef __THERMODYN_HELPER_H__
+#define __THERMODYN_HELPER_H__
 /**
  * Interface: Thermodynamic helper
  * Purpose: Handle resource (memory alloc + delete + init) and Computations
@@ -25,3 +27,4 @@ status print_current_state(device gas);
 status update_volume_isothermal(device gas, double new_volume);
 status update_pressure_isometric(device gas, double new_pressure);
 
+#endif /* __THERMODYN_HELPER_H__ */
