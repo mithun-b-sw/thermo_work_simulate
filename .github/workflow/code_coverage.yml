@@ -1,0 +1,27 @@
+on: [ push, pull_request ]
+
+name: Continuous Integration
+
+jobs:
+  coverage_report:
+    name: Generate coverage report
+    needs: testing
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout cods
+      uses: actions/checkout@v2
+    - name: Compile
+      run: make CFLAGS=--coverage
+    - name: Create gcda files
+      run: ./thermodyn_cycle
+    - name: Collect Coverage
+      run: geninfo ./ -b ./ -o ./coverage/lcov.info
+    - name: Report code coverage
+      uses: zgosalvez/github-actions-report-lcov@v3
+      with:
+        coverage-files: ./coverage/lcov.info
+        minimum-coverage: 60
+        artifact-name: code_coverage_report
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./
+        update-comment: true
