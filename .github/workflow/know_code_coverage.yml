@@ -1,4 +1,8 @@
-on: pull_request
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 name: Continuous Integration
 
@@ -21,7 +25,7 @@ jobs:
       with:
         coverage-files: ./coverage/lcov.info
         minimum-coverage: 60
-        artifact-name: code-coverage-report
+        artifact-name: code_coverage_report
         github-token: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./
         update-comment: true
