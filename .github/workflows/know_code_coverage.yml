@@ -4,12 +4,12 @@ on:
   pull_request:
     branches: [ "master" ]
 
-name: Continuous Integration
+# This name will be displayed under "Actions -> Workflows" of github
+name: Code Coverage
 
 jobs:
   coverage_report:
     name: Generate coverage report
-    needs: testing
     runs-on: ubuntu-latest
     steps:
     - name: Checkout cods
