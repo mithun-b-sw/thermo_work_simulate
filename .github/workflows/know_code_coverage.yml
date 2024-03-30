@@ -9,11 +9,11 @@ name: Code Coverage
 
 jobs:
   coverage_report:
-    name: Generate coverage report
+    name: Coverage report
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout cods
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - name: Compile
       run: make CFLAGS=--coverage
     - name: Create gcda files by program execution
