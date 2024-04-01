@@ -71,22 +71,22 @@ Every client code must end by calling deinit() which frees the resources allocat
 	gcc thermodyn_helper.c -c -I./ -o thermodyn_helper.o
 	gcc thermodyn_client.o thermodyn_helper.o -I./  -o thermodyn_cycle
 	
-	./thermodyn_cycle
+	$ ./thermodyn_cycle
 	# At initial state
-	volume(L)	pressure(Pa)	temperature(K)
-	10.000 L	  101325 Pa	        300 K
+	volume(L)	pressure(Pa)	temperature(K)	time(s)
+	 0.010 L	  101325 Pa	        300 K	0.000 s
 	# After increasing pressure for about 20%
-	volume(L)	pressure(Pa)	temperature(K)
-	10.000 L	  121590 Pa	        360 K
-	# After increasing volume from 0.1 m³ to 0.12 m³
-	volume(L)	pressure(Pa)	temperature(K)
-	12.000 L	  101325 Pa	        360 K
+	volume(L)	pressure(Pa)	temperature(K)	time(s)
+	 0.010 L	  121590 Pa	        360 K	0.000 s
+	# After increasing volume from 0.01 m³ to 0.012 m³
+	volume(L)	pressure(Pa)	temperature(K)	time(s)
+	 0.012 L	  101325 Pa	        360 K	1.412 s
 	# After decreasing pressure below original one
-	volume(L)	pressure(Pa)	temperature(K)
-	12.000 L	   84444 Pa	        300 K
-	# After decreasing volume back from 0.12 m³ to 0.1 m³
-	volume(L)	pressure(Pa)	temperature(K)
-	10.000 L	  101333 Pa	        300 K
+	volume(L)	pressure(Pa)	temperature(K)	time(s)
+	 0.012 L	   84444 Pa	        300 K	1.412 s
+	# After decreasing volume back from 0.012 m³ to 0.01 m³
+	volume(L)	pressure(Pa)	temperature(K)	time(s)
+	 0.010 L	  101333 Pa	        300 K	2.656 s
 
 	$ make cov      # for coverage report generation
 	                # to also html report generated under ./coverage/index.html can be view
