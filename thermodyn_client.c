@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "thermodyn_helper.h"
 
-#define GAS_VOLUME		10
+#define GAS_VOLUME		0.01
 #define GAS_PRESSURE	101325
 #define GAS_TEMPERATURE	300
 
@@ -30,7 +30,7 @@ int main() {
 	 * Isothermal expansion by heating from external source
 	 */
 	update_volume_isothermal(gas, GAS_VOLUME * 1.2);
-	printf("# After increasing volume from 0.1 m³ to 0.12 m³\n");
+	printf("# After increasing volume from 0.01 m³ to 0.012 m³\n");
 	print_current_state(gas);
 
 	/**
@@ -44,7 +44,7 @@ int main() {
 	 * Isothermal compression by rejecting heat
 	 */
 	update_volume_isothermal(gas, GAS_VOLUME);
-	printf("# After decreasing volume back from 0.12 m³ to 0.1 m³\n");
+	printf("# After decreasing volume back from 0.012 m³ to 0.01 m³\n");
 	print_current_state(gas);
 
 	deinit(gas);
