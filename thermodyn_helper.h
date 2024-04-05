@@ -27,4 +27,7 @@ status print_current_state(device gas);
 status update_volume_isothermal(device gas, double new_volume);
 status update_pressure_isometric(device gas, double new_pressure);
 
+// Type 4: Get device characteristics functions
+double get_pressure(const device gas);
+
 #endif /* __THERMODYN_HELPER_H__ */
