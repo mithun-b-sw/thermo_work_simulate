@@ -1,4 +1,5 @@
 CC = gcc
+LDLIBS += -lm
 
 objects := $(patsubst %.c,%.o,$(wildcard *.c))
 target = thermodyn_cycle
@@ -10,7 +11,7 @@ CFLAGS += -I./
 	$(CC) $< -c $(CFLAGS) -o $@
 
 $(target): $(objects)
-	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@ $(LDLIBS)
 
 cov: clean
 	make CFLAGS=--coverage
