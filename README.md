@@ -1,6 +1,7 @@
 # Simulate Thermo-dynamic cycle
 
 Here the simulation is based on Quasi-equilibrium Processes.
+For a quick glance scroll down for pressure and volume time lapse line chart.
 
 ### Design aspects
 
@@ -35,7 +36,7 @@ Now this initial state will exert 101.325 kPa pressure if not external pressure 
 The pressure value is taken from standard temperature and pressure STP standards with SI units.
 This initial state is set by calling init() function which is part of library.
 
-#### Simulation part
+#### Theory behind this simulation
 
 Now there are two operations performed on this device:
 
@@ -66,27 +67,47 @@ Every client code must end by calling deinit() which frees the resources allocat
 
 #### usage
 
+Compile the basic test code using GNU make
+
 	$ make
 	gcc thermodyn_client.c -c -I./ -o thermodyn_client.o
 	gcc thermodyn_helper.c -c -I./ -o thermodyn_helper.o
-	gcc thermodyn_client.o thermodyn_helper.o -I./  -o thermodyn_cycle
-	
+	gcc thermodyn_client.o thermodyn_helper.o -I./  -o thermodyn_cycle -lm
+
+Run the test code and collect the results likes, volume, pressure, temperature,
+time taken and work done at each cycle. We can also provide the number of cycles
+to be ran. The number of cycles can be passes as an argument to executable.
+By default the test code will run one cycle, prints the results and exit.
+
 	$ ./thermodyn_cycle
 	# At initial state
-	volume(L)	pressure(Pa)	temperature(K)	time(s)
-	 0.010 L	  101325 Pa	        300 K	0.000 s
+	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
+	0.0100 m³	  101325 Pa	        300 K	0.000 s	0.000 (J)
 	# After increasing pressure for about 20%
-	volume(L)	pressure(Pa)	temperature(K)	time(s)
-	 0.010 L	  121590 Pa	        360 K	0.000 s
-	# After increasing volume from 0.01 m³ to 0.012 m³
-	volume(L)	pressure(Pa)	temperature(K)	time(s)
-	 0.012 L	  101325 Pa	        360 K	1.412 s
+	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
+	0.0100 m³	  121590 Pa	        360 K	0.000 s	0.000 (J)
+	# After letting gas to increase its volume as per isothermal expansion
+	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
+	0.0141 m³	   86116 Pa	        360 K	0.032 s	419.443 (J)
 	# After decreasing pressure below original one
-	volume(L)	pressure(Pa)	temperature(K)	time(s)
-	 0.012 L	   84444 Pa	        300 K	1.412 s
-	# After decreasing volume back from 0.012 m³ to 0.01 m³
-	volume(L)	pressure(Pa)	temperature(K)	time(s)
-	 0.010 L	  101333 Pa	        300 K	2.656 s
+	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
+	0.0141 m³	   71763 Pa	        300 K	0.032 s	419.443 (J)
+	# After letting gas to decrease its volume as per isothermal contraction
+	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
+	0.0069 m³	  147746 Pa	        300 K	0.062 s	1151.135 (J)
+
+Further we can check the code coverage using following make target `cov`.
 
 	$ make cov      # for coverage report generation
 	                # to also html report generated under ./coverage/index.html can be view
+
+### Simulation results
+
+![simulation-plot](./simulation.png)
+
+The above result is obtained by collecting output of `./thermodyn_cycle 12` or more cycles.
+Basically we can redirect this to a file for example: `./thermodyn_cycle 12 > test.csv`
+and remove lines starting with `#` symbol.
+Then format it as if it's tab or comma separated. Save the file as `.csv` and open it again
+using a spread sheet application and generate the line chart like the one above.
+You play around with pressure, volume and work done parameters with respect to time.
