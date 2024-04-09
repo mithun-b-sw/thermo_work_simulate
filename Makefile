@@ -15,7 +15,7 @@ $(target): $(objects)
 
 cov: clean
 	make CFLAGS=--coverage
-	./$(target)
+	./$(target) 1
 	geninfo ./ -b ./ -o lcov.info
 	genhtml lcov.info -o ./coverage
 	@ echo "\nopen ./coverage/index.html in browser"
