@@ -1,5 +1,11 @@
 /**
  * This is a simple test code to check the thermodyn library.
+ *
+ * to gen csv file:
+ * $ ./thermodyn_cycle 25 | grep -ve "^#" | column -t
+ *
+ * for right justification:
+ * $ ./thermodyn_cycle 25 | grep -ve "^#" | column -t -R 1,2,3,4,5,6
  */
 #include <stdio.h>
 #include <stdlib.h> // atoi()
@@ -28,41 +34,41 @@ int main(int argc, char **argv) {
 	print_current_state(gas);
 
 	double pressure = get_pressure(gas);
-	double coefficient = 1.2;
+	double coefficient = 1.2; // 1.2 indicates 20% increase in pressure
 
 	for(int i = 0; i < iterations; ++i) {
 
-	/**
-	 * Isometric heat addition from external source
-	 */
-	pressure = get_pressure(gas);
-	update_pressure_isometric(gas, pressure * coefficient);
-	printf("# After increasing pressure for about 20%%\n");
-	print_current_state(gas);
+		/**
+		 * Isometric heat addition from external source
+		 */
+		pressure = get_pressure(gas);
+		update_pressure_isometric(gas, pressure * coefficient);
+		printf("# After increasing pressure for about 20%%\n");
+		print_current_state_value(gas);
 
-	/**
-	 * Isothermal expansion by heat observed from external source
-	 */
-	update_volume_isothermal(gas, NAN);
-	/** TODO: NAN is added since client can't set volume. Also library's interface change is restricted */
-	printf("# After letting gas to increase its volume as per isothermal expansion\n");
-	print_current_state(gas);
+		/**
+		 * Isothermal expansion by heat observed from external source
+		 */
+		update_volume_isothermal(gas, NAN);
+		/** TODO: NAN is added since client set volume doesn't make sense.
+		 * Also library's interface change is restricted */
+		printf("# After letting gas to increase its volume as per isothermal expansion\n");
+		print_current_state_value(gas);
 
-	/**
-	 * Isometric heat rejection
-	 */
-	pressure = get_pressure(gas);
-	update_pressure_isometric(gas, pressure / coefficient);
-	printf("# After decreasing pressure below original one\n");
-	print_current_state(gas);
+		/**
+		 * Isometric heat rejection
+		 */
+		pressure = get_pressure(gas);
+		update_pressure_isometric(gas, pressure / coefficient);
+		printf("# After decreasing pressure below original one\n");
+		print_current_state_value(gas);
 
-	/**
-	 * Isothermal compression by rejecting heat
-	 */
-	update_volume_isothermal(gas, NAN);
-	printf("# After letting gas to decrease its volume as per isothermal contraction\n");
-	print_current_state(gas);
-
+		/**
+		 * Isothermal compression by rejecting heat
+		 */
+		update_volume_isothermal(gas, NAN);
+		printf("# After letting gas to decrease its volume as per isothermal contraction\n");
+		print_current_state_value(gas);
 	}
 
 	deinit(gas);

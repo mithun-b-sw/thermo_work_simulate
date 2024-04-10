@@ -22,6 +22,7 @@ status deinit(device gas);
 
 // Type 2: Display functions
 status print_current_state(device gas);
+status print_current_state_value(device gas);
 
 // Type 3: Computation functions
 status update_volume_isothermal(device gas, double new_volume);

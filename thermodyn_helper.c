@@ -8,7 +8,9 @@
 #include <math.h>   // For: fabs() & NAN
 #include "thermodyn_helper.h"
 
-#define U_GAS_CONSTANT 8.3144598    /* J/(mol.K) ; where J -> Newton.meter */
+#define R_GAS_CONSTANT       8.3144598    /* J/(mol.K) ; where J -> Newton.meter */
+#define C_AIR_SPECIFIC_HEAT  20.85        /* J/(mol.K) ; Molar specific heat 'C' */
+#define EQUILIBRIUM_PRESSURE 101325       /* Pa or pascal */
 
 /**
  * Definition of opaque pointer 'device' declared in header file
@@ -45,7 +47,7 @@ status init(device *gas, double volume, double pressure, double temperature) {
 	(*gas)->volume = volume;
 	(*gas)->pressure = pressure;
 	(*gas)->temperature = temperature;
-	(*gas)->moles = (pressure * volume)/(U_GAS_CONSTANT * temperature);
+	(*gas)->moles = (pressure * volume)/(R_GAS_CONSTANT * temperature);
 	(*gas)->time = 0.0;
 	(*gas)->surface_area = 0.04;
 	(*gas)->piston_mass = 1;
@@ -61,9 +63,14 @@ status deinit(device gas) {
 
 // Type 2: Display functions
 status print_current_state(device gas) {
-	printf("volume(m³)\t" "pressure(Pa)\t" "temperature(K)\t"  "time(s)\t" "workdone(J)\n");
-	printf("%6.4lf m³\t"    "%8.0lf Pa\t"      "%11.0lf K\t"  "%.3lf s\t"    "%.3lf (J)\n",
-			gas->volume, gas->pressure, gas->temperature, gas->time, gas->workdone);
+	printf("time(s)\t" "volume(m³)\t" "pressure(Pa)\t" "temperature(K)\t" "workdone(J)\n");
+	print_current_state_value(gas);
+	return SUCCESS;
+}
+
+status print_current_state_value(device gas) {
+	printf("%.3lf\t" "%6.4lf\t" "%8.0lf\t" "%11.0lf\t" "%8.3lf\n",
+			gas->time, gas->volume, gas->pressure, gas->temperature, gas->workdone);
 	return SUCCESS;
 }
 
@@ -91,7 +98,7 @@ status update_volume_isothermal(device gas, double new_volume) { // TODO: new_vo
 	 *
 	 * Boyle's Law: P ∝ (1/V)  =>  P1.V1 = P2.V2
 	 */
-	double new_pressure = 101325;
+	double new_pressure = EQUILIBRIUM_PRESSURE;
 	if(isnan(new_volume)) {
 		new_volume = (new_pressure * gas->volume) / gas->pressure;
 	} else {
@@ -100,9 +107,9 @@ status update_volume_isothermal(device gas, double new_volume) { // TODO: new_vo
 
 	gas->time += compute_time(gas, &new_pressure, &new_volume);
 	if(new_volume > gas->volume)
-		gas->workdone += U_GAS_CONSTANT * gas->moles * gas->temperature * (log(new_volume/gas->volume));
+		gas->workdone += R_GAS_CONSTANT * gas->moles * gas->temperature * (log(new_volume/gas->volume));
 	else
-		gas->workdone += U_GAS_CONSTANT * gas->moles * gas->temperature * (log(gas->volume/new_volume));
+		gas->workdone += R_GAS_CONSTANT * gas->moles * gas->temperature * (log(gas->volume/new_volume));
 
 	gas->volume = new_volume;
 	gas->pressure = new_pressure;
