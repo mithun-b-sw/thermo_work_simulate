@@ -2,6 +2,8 @@
 
 Here the simulation is based on Quasi-equilibrium Processes.
 For a quick glance scroll down for pressure and volume time lapse line chart.
+Also there is pressure - volume curve once the engine gets into equilibrium,
+which tells us the amount to heat added, rejected, work done other details.
 
 ### Design aspects
 
@@ -111,3 +113,13 @@ and remove lines starting with `#` symbol.
 Then format it as if it's tab or comma separated. Save the file as `.csv` and open it again
 using a spread sheet application and generate the line chart like the one above.
 You play around with pressure, volume and work done parameters with respect to time.
+
+![P-V-curve-plot](./Sterling_cycle_pressure_volume_curve_on_plane.png)
+
+The above plot is a pressure volume curve at 20th iteration,
+where the cycles settles down. The data for above curve is be obtained by
+printing pressure - volume values for both isothermal cycles
+(expansion and compression) inside the loop used to compute quasi-equilibrium process.
+Once we have values of pressure and corresponding volume, store it in csv file format.
+Then insert a chart with XY (scatter) plot with smooth curve or similar options
+which will not sort the data before generating the curve.
