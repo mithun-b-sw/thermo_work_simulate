@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 
 	for(int i = 0; i < iterations; ++i) {
 
+		double start_time = get_time(gas);
 		/**
 		 * Isometric heat addition from external source
 		 */
@@ -69,6 +70,8 @@ int main(int argc, char **argv) {
 		update_volume_isothermal(gas, NAN);
 		printf("# After letting gas to decrease its volume as per isothermal contraction\n");
 		print_current_state_value(gas);
+		double end_time = get_time(gas);
+		printf("# Rotational Speed = %.3lf rmp at cycle = %d \n", 60/(end_time - start_time), i+1);
 	}
 
 	deinit(gas);

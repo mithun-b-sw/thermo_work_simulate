@@ -98,6 +98,26 @@ By default the test code will run one cycle, prints the results and exit.
 	volume(m³)	pressure(Pa)	temperature(K)	time(s)	workdone(J)
 	0.0069 m³	  147746 Pa	        300 K	0.062 s	1151.135 (J)
 
+Change the test code to keep a note of start and end time to compute rpm
+(Revolutions per minute). The test code is a right place to keep track of
+start and end time of a thermodynamic cycle and library is not a good place.
+Because for that to happen, library will need to know about the cycles ran
+from test codes perspective or additional overhead and assumptions
+needed about thermodynamic processes. Coming back to printing the rpm,
+first filter out other details accept rpm as follows:
+
+	$ ./thermodyn_cycle 10 | grep -e "^# Rota"
+	# Rotational Speed = 967.742 rmp at cycle = 1
+	# Rotational Speed = 960.000 rmp at cycle = 2
+	# Rotational Speed = 952.381 rmp at cycle = 3
+	# Rotational Speed = 946.372 rmp at cycle = 4
+	# Rotational Speed = 943.396 rmp at cycle = 5
+	# Rotational Speed = 941.915 rmp at cycle = 6
+	# Rotational Speed = 940.439 rmp at cycle = 7
+	# Rotational Speed = 940.439 rmp at cycle = 8
+	# Rotational Speed = 940.439 rmp at cycle = 9
+	# Rotational Speed = 940.439 rmp at cycle = 10
+
 Further we can check the code coverage using following make target `cov`.
 
 	$ make cov      # for coverage report generation
