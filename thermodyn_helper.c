@@ -122,6 +122,10 @@ double get_pressure(const device gas) {
 	return gas->pressure;
 }
 
+double get_time(const device piston) {
+	return piston->time;
+}
+
 // Type 5: Local/Static functions
 double compute_time(device gas, double *final_pressure, double *final_volume) {
 	double time_step_size = 0.0001;
