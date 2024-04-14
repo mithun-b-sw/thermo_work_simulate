@@ -31,5 +31,6 @@ status update_pressure_isometric(device gas, double new_pressure);
 // Type 4: Get device characteristics functions
 double get_pressure(const device gas);
 double get_time(const device piston);
+double get_displacement(const device piston);
 
 #endif /* __THERMODYN_HELPER_H__ */
