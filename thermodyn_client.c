@@ -55,6 +55,7 @@ int main(int argc, char **argv) {
 		 * Also library's interface change is restricted */
 		printf("# After letting gas to increase its volume as per isothermal expansion\n");
 		print_current_state_value(gas);
+		double max_expansion = get_displacement(gas);
 
 		/**
 		 * Isometric heat rejection
@@ -71,7 +72,9 @@ int main(int argc, char **argv) {
 		printf("# After letting gas to decrease its volume as per isothermal contraction\n");
 		print_current_state_value(gas);
 		double end_time = get_time(gas);
-		printf("# Rotational Speed = %.3lf rmp at cycle = %d \n", 60/(end_time - start_time), i+1);
+		double max_compression = get_displacement(gas);
+		printf("# Rotational Speed = %.3lf rpm and piston displacement = %.3f m at cycle = %d \n",
+			60/(end_time - start_time), max_expansion - max_compression, i+1);
 	}
 
 	deinit(gas);
