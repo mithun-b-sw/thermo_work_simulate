@@ -134,7 +134,7 @@ Then format it as if it's tab or comma separated. Save the file as `.csv` and op
 using a spread sheet application and generate the line chart like the one above.
 You play around with pressure, volume and work done parameters with respect to time.
 
-![P-V-curve-plot](./Sterling_cycle_pressure_volume_curve_on_plane.png)
+![P-V-curve-plot](./Sterling_cycle_pressure_volume_curve.png)
 
 The above plot is a pressure volume curve at 20th iteration,
 where the cycles settles down. The data for above curve is be obtained by
