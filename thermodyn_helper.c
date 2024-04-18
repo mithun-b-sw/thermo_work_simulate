@@ -88,7 +88,7 @@ status update_pressure_isometric(device gas, double new_pressure) {
 	return SUCCESS;
 }
 
-status update_volume_isothermal(device gas, double new_volume) { // TODO: new_volume argument not supported
+status update_volume_isothermal(device gas, double) {
 	/**
 	 * For Isothermal process, the 'polytropic index' n = 1;
 	 * So the actual relation:
@@ -99,11 +99,7 @@ status update_volume_isothermal(device gas, double new_volume) { // TODO: new_vo
 	 * Boyle's Law: P ∝ (1/V)  =>  P1.V1 = P2.V2
 	 */
 	double new_pressure = EQUILIBRIUM_PRESSURE;
-	if(isnan(new_volume)) {
-		new_volume = (new_pressure * gas->volume) / gas->pressure;
-	} else {
-		new_pressure = (gas->volume * gas->pressure) / new_volume;
-	}
+	double new_volume = (new_pressure * gas->volume) / gas->pressure;
 
 	gas->time += compute_time(gas, &new_pressure, &new_volume);
 	if(new_volume > gas->volume)
