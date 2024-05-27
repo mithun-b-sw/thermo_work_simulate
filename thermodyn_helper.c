@@ -13,6 +13,12 @@
 #define EQUILIBRIUM_PRESSURE 101325       /* Pa or pascal */
 
 /**
+ * Extern variable declarations as follows:
+ */
+char print_quasi_equilibrium_values = 'n';/* By default Quasi-equilibrium PV values are printed.*/
+// Hint: The client code can enable print by setting 'y' and disable again by setting 'n'.
+
+/**
  * Definition of opaque pointer 'device' declared in header file
  */
 struct system_t {			/* SI units are used */
@@ -160,6 +166,11 @@ double compute_time(device gas, double *final_pressure, double *final_volume) {
 		direction = (velocity > 0.0) ? 1 : ((velocity < 0.0) ? -1 : 0);
 		volume = chamber_length * piston->surface_area;
 		pressure = pressure_volume_constant / volume;
+		if('y' == print_quasi_equilibrium_values)
+			printf("%.4lf\t" "%6.5lf\t" "%8.0lf\t" "%11.0lf\t" "%8.3lf\n",
+				gas->time+time, volume, pressure, gas->temperature,
+				gas->workdone);
+
 		time += time_step_size;
 	} while (0 == previous_direction || previous_direction == direction);
 
