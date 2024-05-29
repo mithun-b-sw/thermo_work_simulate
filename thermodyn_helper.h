@@ -33,4 +33,7 @@ double get_pressure(const device gas);
 double get_time(const device piston);
 double get_displacement(const device piston);
 
+// Type 5: Global variable's extern declarations
+extern char print_quasi_equilibrium_values;
+
 #endif /* __THERMODYN_HELPER_H__ */

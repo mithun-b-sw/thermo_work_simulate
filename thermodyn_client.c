@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
 	/**
 	 * The 'device' type is an opaque pointer,
-	 * followed by init() and uninit() act as interface using the opaque pointer.
+	 * followed by init() and deinit() act as interface using the opaque pointer.
 	 */
 	device gas;
 	init(&gas, GAS_VOLUME, GAS_PRESSURE, GAS_TEMPERATURE);
@@ -36,6 +36,13 @@ int main(int argc, char **argv) {
 	double pressure = get_pressure(gas);
 	double coefficient = 1.2; // 1.2 indicates 20% increase in pressure
 
+	/**
+	 * Following use of extern variable will enable the print of
+	 * Quasi-equilibrium pressure, volume along with time.
+	 * Using this info we can generate a smooth curve of PV plot over time
+	 * displayed on README.md on github page.
+	 */
+	print_quasi_equilibrium_values = 'y';
 	for(int i = 0; i < iterations; ++i) {
 
 		double start_time = get_time(gas);
