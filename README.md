@@ -2,8 +2,8 @@
 
 Here the simulation is based on Quasi-equilibrium Processes.
 For a quick glance scroll down for pressure and volume time lapse line chart.
-Also there is pressure - volume curve once the engine gets into equilibrium,
-which tells us the amount to heat added, rejected, work done other details.
+Also there is pressure v/s volume curve once the engine gets into equilibrium,
+which tells us the amount to heat added, rejected, work done and other insights.
 
 ### Design aspects
 
@@ -24,8 +24,10 @@ Are there any more advantages of such design?
 Yes, opaque pointers allow to extend the internal data structure and client part doesn't know.
 The functions exposed to client (interface) also doesn't need to change.
 
-Basically if client code is compiled,
-it doesn't need to compile again to link with the changes done only on library part.
+Basically compilation of client code doesn't need library code re-compilation,
+to link with the changes done only on client part.
+The same is true for compilation of library code with changes only on library code,
+which doesn't need re-compilation of client code.
 
 ### What simulations are attempted?
 
@@ -34,7 +36,7 @@ The client code containing a main() function described here.
 #### Initialization part
 
 An opaque pointer named 'device' started with 10L of air at 300K temperature (assumed values).
-Now this initial state will exert 101.325 kPa pressure if not external pressure applied.
+Now this initial state will exert 101325 Pa pressure if no external pressure applied.
 The pressure value is taken from standard temperature and pressure STP standards with SI units.
 This initial state is set by calling init() function which is part of library.
 
