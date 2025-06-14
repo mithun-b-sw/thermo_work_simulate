@@ -12,9 +12,15 @@
 #include <math.h>   // NAN
 #include "thermodyn_helper.h"
 
-#define GAS_VOLUME		0.01
-#define GAS_PRESSURE	101325
-#define GAS_TEMPERATURE	300
+#ifndef GAS_VOLUME
+#  define GAS_VOLUME        0.01
+#endif
+#ifndef GAS_PRESSURE
+#  define GAS_PRESSURE      101325
+#endif
+#ifndef GAS_TEMPERATURE
+#  define GAS_TEMPERATURE   300
+#endif
 
 int main(int argc, char **argv) {
 
